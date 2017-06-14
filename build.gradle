@@ -1,0 +1,55 @@
+buildscript {
+    ext {
+        versions = [
+                gradleSonar         : "0.1.4"
+        ]
+        sonar_example_plugin = "0.0.1"
+    }
+
+    dependencies {
+        classpath "gradle.plugin.com.iadams.plugins:gradle-sonar-packaging-plugin:${versions.gradleSonar}"
+    }
+    repositories {
+        maven { url "https://plugins.gradle.org/m2/" }
+        mavenCentral()
+        jcenter()
+    }
+}
+
+allprojects {
+    repositories {
+        maven { url "https://plugins.gradle.org/m2/" }
+        mavenCentral()
+        jcenter()
+    }
+}
+
+subprojects {
+    apply plugin: 'java'
+}
+
+project (":sonar-example-plugin"){
+    apply plugin: 'com.iadams.sonar-packaging'
+
+    dependencies {
+        provided 'org.sonarsource.sonarqube:sonar-plugin-api:5.6'
+    }
+
+    //pluginPackaging.dependsOn "compileJava"
+
+    sonarPackaging {
+        serverUrl = 'http://localhost:9000'
+        pluginDir = '/tmp/sonarqube-5.1/extensions/plugins'
+        pluginKey = 'example'
+        pluginClass = 'org.sonarsource.plugins.example.ExamplePlugin'
+        pluginName = 'Example'
+        pluginDescription = 'Exmaple'
+        pluginParent = null
+        pluginLicense = 'MIT'
+        requirePlugins = null
+        pluginDevelopers = 'Gama Ogi Prayogo'
+        skipDependenciesPackaging = false
+        useChildFirstClassLoader = false
+    }
+   
+}

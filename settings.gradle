@@ -1,0 +1,2 @@
+rootProject.name = 'gradle-sonar-packaging-plugin-issue-16'
+include 'sonar-example-plugin'
