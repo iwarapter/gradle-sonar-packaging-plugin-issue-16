@@ -1,0 +1,9 @@
+env:
+   - TERM=dumb
+
+language: groovy
+jdk:
+  - oraclejdk8
+
+before_install:
+ - chmod +x gradlew
